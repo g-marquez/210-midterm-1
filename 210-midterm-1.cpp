@@ -28,32 +28,39 @@ private: //lays out private members of the class
     Node* head; //tracks the head of the list
     Node* tail; //tracks the tail of the list
 
-public:
+public: //lays out public methods for the class
+    //default constructor for the doubly linked list
+    //assigns nullptr to head and tail by default
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
+    //method to insert a value after a given position in the list
+    //takes 2 parameters, value & position
     void insert_after(int value, int position) {
-        if (position < 0) {
+        if (position < 0) { //validates position parameter
             cout << "Position must be >= 0." << endl;
             return;
         }
 
-        Node* newNode = new Node(value);
-        if (!head) {
-            head = tail = newNode;
+        Node* newNode = new Node(value); //dynamically allocate new Node to insert
+        if (!head) { //if head == nullptr (list empty)
+            head = tail = newNode; //set head & tail = the only node in the list
             return;
         }
 
-        Node* temp = head;
+        Node* temp = head; //declare temp node and assign head's value to it
+        //iterate through the list position number of times
+        //also checking that temp is valid
         for (int i = 0; i < position && temp; ++i)
-            temp = temp->next;
+            temp = temp->next; //go on to the next node
 
-        if (!temp) {
+        if (!temp) { //position given was larger than the list size
             cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
+            delete newNode; //deallocate memory in this case
             return;
         }
 
-        newNode->next = temp->next;
+        //arrived at correct position
+        newNode->next = temp->next; //
         newNode->prev = temp;
         if (temp->next)
             temp->next->prev = newNode;

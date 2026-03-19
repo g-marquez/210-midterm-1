@@ -1,14 +1,23 @@
+//*****************************************************************************
+// COMSC-210 | Midterm 1 | Gabriel Marquez
+// Description: this program comments the starter code 210-midterm-starter-1.cpp
+// file provided in Canvas and demonstrates a class method every_other_element().
+//*****************************************************************************
+
 #include <iostream>
 using namespace std;
 
+//constants that will be used in main()
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
-class DoublyLinkedList {
-private:
-    struct Node {
-        int data;
-        Node* prev;
-        Node* next;
+class DoublyLinkedList { //class declaration for DoublyLinkedList
+private: //lays out private members of the class
+    struct Node { //struct declaration for the nose of a doubly linked list
+        int data; //int data member of the Node
+        Node* prev; //pointer that points to the previous node in the list
+        Node* next; //pointer that points to the next node in the list
+        //default constructor that takes a val parameter for data
+        //and assigns default nullptr to prev and next
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
             data = val; 
             prev = p;
@@ -16,8 +25,8 @@ private:
         }
     };
 
-    Node* head;
-    Node* tail;
+    Node* head; //tracks the head of the list
+    Node* tail; //tracks the tail of the list
 
 public:
     DoublyLinkedList() { head = nullptr; tail = nullptr; }

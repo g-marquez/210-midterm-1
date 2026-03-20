@@ -155,25 +155,29 @@ public: //lays out public methods for the class
         }
     }
     
+    //method to add node to head of list
+    //takes 1 parameter, v
     void push_front(int v) {
+        //dynamically allocate a new Node with data value v
         Node* newNode = new Node(v);
-        if (!head)
-            head = tail = newNode;
+        if (!head) //no head, empty list
+            head = tail = newNode; //newNode becomes both head and tail
         else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+            newNode->next = head; //else, set newNode's next pointer to head
+            head->prev = newNode; //head's prev pointer now points to newNode
+            head = newNode; //adjust head to point to newNode (new head of list)
         }
     }
     
+    //method to delete node from head of list
     void pop_front() {
 
-        if (!head) {
+        if (!head) { //return if list if empty
             cout << "List is empty." << endl;
             return;
         }
 
-        Node * temp = head;
+        Node * temp = head; //declare temp pointer and assign head's value to it
 
         if (head->next) {
             head = head->next;
@@ -185,11 +189,11 @@ public: //lays out public methods for the class
     }
 
     void pop_back() {
-        if (!tail) {
+        if (!tail) { //return if list is empty
             cout << "List is empty." << endl;
             return;
         }
-        Node * temp = tail;
+        Node * temp = tail; //declare temp pointer and assign tail's value to it
 
         if (tail->prev) {
             tail = tail->prev;
@@ -200,12 +204,13 @@ public: //lays out public methods for the class
         delete temp;
     }
 
+    //class destructor
     ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
-        }
+        while (head) { //while the list is not empty
+            Node* temp = head; //declare temp pointer and point to head
+            head = head->next; //move head of list over 1 node
+            delete temp; //delete temp
+        } //repeat until list is fully deleted
     }
     void print() {
         Node* current = head;

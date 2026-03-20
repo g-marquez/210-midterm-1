@@ -47,7 +47,7 @@ public: //lays out public methods for the class
             return;
         }
 
-        Node* temp = head; //declare temp node and assign head's value to it
+        Node* temp = head; //declare temp pointer and assign head's value to it
         //iterate through the list position number of times
         //also checking that temp is valid
         for (int i = 0; i < position && temp; ++i)
@@ -60,36 +60,42 @@ public: //lays out public methods for the class
         }
 
         //arrived at correct position
-        newNode->next = temp->next; //
-        newNode->prev = temp;
-        if (temp->next)
-            temp->next->prev = newNode;
+        newNode->next = temp->next; //set newNode's next pointer to temp->next
+        newNode->prev = temp; //set newNode's prev pointer to temp itself
+        if (temp->next) //if temp->next is not a nullptr
+            temp->next->prev = newNode; //set it's prev pointer to newNode
         else
-            tail = newNode;
-        temp->next = newNode;
+            tail = newNode; //else set tail to newNode instead
+        temp->next = newNode; //set temp->next to newNode as final step
+        //now pointers have been successfully adjusted
     }
 
+    //method to delete a node based on given value
+    //takes 1 parameter, value
     void delete_val(int value) {
-        if (!head) return;
+        if (!head) return; //return if the list is empty
 
-        Node* temp = head;
+        Node* temp = head; //declare temp pointer and assign head's value to it
         
+        //loop through list
+        //checking to see that temp is valid and temp->data is not the value
+        //we want to delete
         while (temp && temp->data != value)
-            temp = temp->next;
+            temp = temp->next; //go to next node if so
 
-        if (!temp) return; 
+        if (!temp) return; //value was not found
 
-        if (temp->prev)
-            temp->prev->next = temp->next;
+        if (temp->prev) //if temp->prev is not null (not the head of list)
+            temp->prev->next = temp->next; //reroute temp->prev->next to temp->next
         else
-            head = temp->next; 
+            head = temp->next; //else, move head over one node
 
-        if (temp->next)
-            temp->next->prev = temp->prev;
+        if (temp->next) //if we're not at the tail
+            temp->next->prev = temp->prev; //reroute temp->next's prev pointer
         else
-            tail = temp->prev; 
+            tail = temp->prev; //else, adjust the tail pointer
 
-        delete temp;
+        delete temp; //now safe to delete temp
     }
 
     void delete_pos(int pos) {

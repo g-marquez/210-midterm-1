@@ -179,15 +179,17 @@ public: //lays out public methods for the class
 
         Node * temp = head; //declare temp pointer and assign head's value to it
 
-        if (head->next) {
-            head = head->next;
-            head->prev = nullptr;
+        if (head->next) { //if head->next is not null
+            head = head->next; //reassign it to head
+            head->prev = nullptr; //then make head->prev null
+            //this detaches the head node
         }
-        else
+        else //else (only one node), make head & tail both null
             head = tail = nullptr;
-        delete temp;
+        delete temp; //safe to delete temp
     }
 
+    //method to delete tail of the list
     void pop_back() {
         if (!tail) { //return if list is empty
             cout << "List is empty." << endl;
@@ -195,13 +197,14 @@ public: //lays out public methods for the class
         }
         Node * temp = tail; //declare temp pointer and assign tail's value to it
 
-        if (tail->prev) {
-            tail = tail->prev;
-            tail->next = nullptr;
+        if (tail->prev) { //if tail->prev is not null
+            tail = tail->prev; //reassign it to tail
+            tail->next = nullptr; //then make tail->next null
+            //this detaches the tail node
         }
-        else
+        else //else (only one node), make head & tail both null
             head = tail = nullptr;
-        delete temp;
+        delete temp; //safe to delete temp now
     }
 
     //class destructor
@@ -212,6 +215,8 @@ public: //lays out public methods for the class
             delete temp; //delete temp
         } //repeat until list is fully deleted
     }
+
+    //method to print list from head to tail
     void print() {
         Node* current = head;
         if (!current) {

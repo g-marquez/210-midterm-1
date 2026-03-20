@@ -98,51 +98,60 @@ public: //lays out public methods for the class
         delete temp; //now safe to delete temp
     }
 
+    //method to delete based on position
+    //takes 1 parameter, pos
     void delete_pos(int pos) {
-        if (!head) {
+        if (!head) { //return if list is empty
             cout << "List is empty." << endl;
             return;
         }
-    
-        if (pos == 1) {
+        
+        //if pos == 1, delete that first node and be done
+        if (pos == 1) { 
             pop_front();
             return;
         }
     
-        Node* temp = head;
+        Node* temp = head; //declare temp pointer and assign head's value to it
     
+        //iterate through the list pos number of times 
         for (int i = 1; i < pos; i++){
-            if (!temp) {
+            if (!temp) { //return if temp is a nullptr
                 cout << "Position doesn't exist." << endl;
                 return;
             }
-            else
+            else //else, move to the next node
                 temp = temp->next;
         }
-        if (!temp) {
+        if (!temp) { //if we make it through th whole list
             cout << "Position doesn't exist." << endl;
+            return; //return because pos does not exist
+        }
+    
+        if (!temp->next) { //if temp->next is null (at the end of the list)
+            pop_back(); //delete it
             return;
         }
     
-        if (!temp->next) {
-            pop_back();
-            return;
-        }
-    
+        //declare a tempPrev pointer and set it to temp->prev
+        //to not lose your spot
         Node* tempPrev = temp->prev;
-        tempPrev->next = temp->next;
-        temp->next->prev = tempPrev;
-        delete temp;
+        tempPrev->next = temp->next; //set it's next pointer to temp->next
+        temp->next->prev = tempPrev; //set next's prev pointer to tempPrev
+        delete temp; //now safe to delete temp
     }
 
+    //method to add a node to the tail of the list
+    //takes 1 parameter, v
     void push_back(int v) {
+        //dynamically allocate a new Node with data value v
         Node* newNode = new Node(v);
-        if (!tail)
-            head = tail = newNode;
+        if (!tail) //no tail, empty list
+            head = tail = newNode; //newNode becomes both head and tail
         else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+            tail->next = newNode; //else, add newNode to end of list
+            newNode->prev = tail; //set newNode's prev pointer to tail
+            tail = newNode; //adjust tail to point to newNode (new end of list)
         }
     }
     

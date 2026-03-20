@@ -221,7 +221,7 @@ public: //lays out public methods for the class
     //method to print list from head to tail
     void print() {
         Node* current = head; //declare current and set to head to keep track
-        if (!current) {
+        if (!current) { //if list is empty, return
             cout << "List is empty." << endl;
             return;
         }
@@ -235,7 +235,7 @@ public: //lays out public methods for the class
     //method to print list from tail to head (in reverse)
     void print_reverse() {
         Node* current = tail; //declare current and set to tail to keep track
-        if (!current) { 
+        if (!current) { //if list is empty, return
             cout << "List is empty." << endl;
             return;
         }

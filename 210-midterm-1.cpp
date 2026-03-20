@@ -10,6 +10,8 @@ using namespace std;
 //constants that will be used in main()
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
+const int SIZE = 6; //for demo in main()
+
 class DoublyLinkedList { //class declaration for DoublyLinkedList
 private: //lays out private members of the class
     struct Node { //struct declaration for the nose of a doubly linked list
@@ -218,35 +220,61 @@ public: //lays out public methods for the class
 
     //method to print list from head to tail
     void print() {
-        Node* current = head;
+        Node* current = head; //declare current and set to head to keep track
         if (!current) {
             cout << "List is empty." << endl;
             return;
         }
-        while (current) {
-            cout << current->data << " ";
-            current = current->next;
+        while (current) { //loop through list while not null
+            cout << current->data << " "; //output data value
+            current = current->next; //move to next node
         }
         cout << endl;
     }
 
+    //method to print list from tail to head (in reverse)
     void print_reverse() {
-        Node* current = tail;
+        Node* current = tail; //declare current and set to tail to keep track
         if (!current) { 
             cout << "List is empty." << endl;
             return;
         }
-        while (current) {
-            cout << current->data << " ";
-            current = current->prev;
+        while (current) { //loop through list while not null
+            cout << current->data << " "; //output data value
+            current = current->prev; //move to previous node
+        }
+        cout << endl;
+    }
+
+    //method to print every other element
+    void every_other_element() {
+        Node* current = head; //declare current and set to head to keep track
+        if (!current) { //if list is empty, return
+            cout << "List is empty." << endl;
+            return;
+        }
+        while (current) { //loop through list while not null
+            cout << current->data << " "; //output data value
+            current = current->next; //move to next node
+            current = current->next; //move to next node again (every other)
         }
         cout << endl;
     }
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+    srand(time(0)); //for random numbers
+    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS << endl;  // dummy statement to avoid compiler warning
 
+    DoublyLinkedList list; //create doubly linked list object
+    //fill with random values
+    for (int i = 0; i < SIZE; ++i)
+        list.push_back(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
+    cout << "List forward: ";
+    list.print(); //output all values from head to tail
+
+    cout << "Every other element: ";
+    list.every_other_element(); //output every other element from head to tail
     
     return 0;
 }
